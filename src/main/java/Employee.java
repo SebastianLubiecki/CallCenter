@@ -3,6 +3,7 @@ import java.util.Random;
 
 abstract class Employee {
 
+
     private boolean getStatus;
 
     Employee(boolean getStatus) {
@@ -10,6 +11,7 @@ abstract class Employee {
     }
 
     boolean handleCall() {
+
         return false;
     }
 
@@ -17,17 +19,24 @@ abstract class Employee {
         Random random = new Random();
         int numberOfEmployee = random.nextInt(employeeList.size());
         if (employeeList.get(numberOfEmployee).isStatus()) {
+            employeeList.get(numberOfEmployee).setGetStatus(true);
             return employeeList.get(numberOfEmployee);
         } else {
             int i = 0;
             while (!employeeList.get(i).isStatus()) {
                 i++;
             }
+            employeeList.get(i).setGetStatus(true);
             return employeeList.get(i);
         }
     }
 
-    public boolean isStatus() {
+    public void setGetStatus(boolean getStatus) {
+        this.getStatus = getStatus;
+    }
+
+
+    private boolean isStatus() {
         return getStatus;
     }
 }
