@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Random;
+
 abstract class Employee {
 
     private boolean getStatus;
@@ -10,8 +13,10 @@ abstract class Employee {
         return false;
     }
 
-    boolean escalateCall() {
-        return false;
+    Employee escalateCall(List<Employee> employeeList) {
+        Random random = new Random();
+        int numberOfEmployee = random.nextInt(employeeList.size());
+        return employeeList.get(numberOfEmployee);
     }
 
     public boolean isGetStatus() {
