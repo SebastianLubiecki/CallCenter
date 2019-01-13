@@ -2,18 +2,18 @@ public class Call<T extends Client> {
 
     private T client;
     private Employee employee;
-    private int status;
+    private StatusOfEmployee status;
 
 
     public Call(T client, Employee employee) {
         this.client = client;
         this.employee = employee;
-        this.status = 1;
+        this.status = StatusOfEmployee.CONSULTANT;
     }
 
-    public Call(T client, int status) {
+    public Call(T client) {
         this.client = client;
-        this.status = status;
+        this.status =  StatusOfEmployee.CONSULTANT;
     }
 
     public T getClient() {
@@ -24,18 +24,23 @@ public class Call<T extends Client> {
         this.employee = employee;
     }
 
-    public int getStatus() {
+
+    public StatusOfEmployee getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(StatusOfEmployee status) {
         this.status = status;
     }
 
     public boolean incrementUrgencyLevel() {
-        setStatus(getStatus() + 1);
-
-        return true;
+        if (getStatus().equals(StatusOfEmployee.CONSULTANT)){
+            setStatus(StatusOfEmployee.MANAGER );
+        }
+        if (getStatus().equals(StatusOfEmployee.MANAGER)){
+            setStatus(StatusOfEmployee.DIRECTOR );
+        }
+        return !getStatus().equals(StatusOfEmployee.DIRECTOR);
     }
 
 }

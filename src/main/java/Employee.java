@@ -11,7 +11,6 @@ abstract class Employee {
 
     boolean handleCall(List<Employee> employeeList) {
 
-
         return false;
     }
 
@@ -25,17 +24,18 @@ abstract class Employee {
         getNewCall();
     }
 
-    private static boolean getNewCall() {
+    private  boolean getNewCall() {
+        if (!isStatus()) {
 
+            return false;
+        }
 
-        return false;
+        return CallCenter.getInstanceOfCallCenter().assignCall(this); //metoda assignCall to takie proszneie o rozmowe
     }
-
 
     public void setGetStatus(boolean getStatus) {
         this.getStatus = getStatus;
     }
-
 
     public boolean isStatus() {
         return getStatus;

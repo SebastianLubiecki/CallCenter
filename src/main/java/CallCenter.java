@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 
@@ -10,6 +11,8 @@ public class CallCenter {
     private List<Employee> consultant;
     private List<Employee> managers;
     private List<Employee> director;
+    private Map<Enum<StatusOfEmployee>, List<Employee>> employeeMap;
+    private Map<Enum<StatusOfEmployee>, List<Call>> callMap;
 
     private CallCenter() {
     }
@@ -35,22 +38,16 @@ public class CallCenter {
         return callList;
     }
 
+    void dispatchCall(Call call) {
+        algorithmOfDispatchCall(call, employeeMap.get(call.getStatus()));
 
-    boolean dispatchCall(Call call) {
-        if (call.getStatus() == 1) {
-            algorithmOfDispatchCall(call, consultant);
-            return true;
-        } else if (call.getStatus() == 2) {
-            algorithmOfDispatchCall(call, managers);
-            return true;
-        } else if (call.getStatus() == 3) {
-            algorithmOfDispatchCall(call, director);
-            return true;
-        }
-
-        return false;
     }
 
+    boolean assignCall (Employee employee){
+
+        // brakuje implementacji, to jest prosznie sie o rozmowe
+        return false;
+    }
 
     private static void algorithmOfDispatchCall(Call call, List<Employee> employeeList) {
         Random random = new Random();
