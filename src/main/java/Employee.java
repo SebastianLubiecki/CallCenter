@@ -16,18 +16,18 @@ abstract class Employee {
     Employee escalateCall(List<Employee> employeeList) {
         Random random = new Random();
         int numberOfEmployee = random.nextInt(employeeList.size());
-        if (employeeList.get(numberOfEmployee).getStatus) {
+        if (employeeList.get(numberOfEmployee).isStatus()) {
             return employeeList.get(numberOfEmployee);
         } else {
             int i = 0;
-            while (!employeeList.get(i).getStatus) {
+            while (!employeeList.get(i).isStatus()) {
                 i++;
             }
             return employeeList.get(i);
         }
     }
 
-    public boolean isGetStatus() {
+    public boolean isStatus() {
         return getStatus;
     }
 }
