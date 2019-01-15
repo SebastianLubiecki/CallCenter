@@ -36,13 +36,13 @@ public class CallCenter {
     }
 
     public Map<Enum<StatusOfEmployee>, Queue<Call>> addNewCallToCallMap(Call call) {
-        addCallToListOfCalls(call);
+        addCallToTheQueueOfCalls(call);
         callMap.put(call.getStatus(), callQueue);
 
         return callMap;
     }
 
-    private void addCallToListOfCalls(Call call) {
+    private void addCallToTheQueueOfCalls(Call call) {
         callQueue.add(call);
     }
 
@@ -52,14 +52,14 @@ public class CallCenter {
     }
 
     void dispatchCall(Call call) {
-        algorithmOfDispatchCall(call, employeeMap.get(call.getStatus()));
+            algorithmOfDispatchCall(call, employeeMap.get(call.getStatus()));
     }
 
     boolean assignCall(Employee employee) {
         if (callQueue.peek() != null) {
             Call call = callQueue.peek();
             call.setEmployee(employee);
-            employee.setGetStatus(true);
+            employee.setGetStatus(false);
 
             return true;
         }
@@ -75,6 +75,7 @@ public class CallCenter {
         if (employeeList.get(numberOfEmployee).isStatus()) {
             employeeList.get(numberOfEmployee).setGetStatus(true);
             call.setEmployee(employeeList.get(numberOfEmployee));
+
         } else {
             int i = 0;
             while (!employeeList.get(i).isStatus()) {
@@ -85,7 +86,7 @@ public class CallCenter {
         }
     }
 
-    public static CallCenter getCallCenter() {
+    static CallCenter getCallCenter() {
         return callCenter;
     }
 }

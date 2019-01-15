@@ -1,8 +1,7 @@
 public class Manager extends Employee {
 
 
-    public Manager(boolean getStatus) {
-        super(getStatus);
+    public Manager(boolean getStatusOfCall, StatusOfEmployee statusOfEmployee) {
+        super(getStatusOfCall, statusOfEmployee);
     }
-
 }

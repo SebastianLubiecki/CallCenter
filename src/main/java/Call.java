@@ -20,20 +20,20 @@ public class Call<T extends Client> {
         return client;
     }
 
-    public void setEmployee(Employee employee) {
+    void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
 
-    public StatusOfEmployee getStatus() {
+    StatusOfEmployee getStatus() {
         return status;
     }
 
-    public void setStatus(StatusOfEmployee status) {
+    private void setStatus(StatusOfEmployee status) {
         this.status = status;
     }
 
-    public boolean incrementUrgencyLevel() {
+    boolean incrementUrgencyLevel() {
         if (getStatus().equals(StatusOfEmployee.CONSULTANT)){
             setStatus(StatusOfEmployee.MANAGER );
         }
@@ -43,4 +43,7 @@ public class Call<T extends Client> {
         return !getStatus().equals(StatusOfEmployee.DIRECTOR);
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
 }

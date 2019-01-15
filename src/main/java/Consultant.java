@@ -1,8 +1,6 @@
 public class Consultant extends Employee{
 
-
-    public Consultant(boolean getStatus) {
-        super(getStatus);
+    public Consultant(boolean getStatusOfCall, StatusOfEmployee statusOfEmployee) {
+        super(getStatusOfCall, statusOfEmployee);
     }
-
 }

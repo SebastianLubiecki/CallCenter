@@ -2,17 +2,21 @@ import java.util.List;
 
 abstract class Employee {
 
-    private boolean getStatus;
+    private boolean isEmployeeFree;
+    private StatusOfEmployee statusOfEmployee;
 
 
-    Employee(boolean getStatus) {
-        this.getStatus = getStatus;
+    public Employee(boolean isEmployeeFree, StatusOfEmployee statusOfEmployee) {
+        this.isEmployeeFree = isEmployeeFree;
+        this.statusOfEmployee = statusOfEmployee;
     }
 
-    //.............
-    boolean handleCall(List<Employee> employeeList) {
+    void handleCall(List<Employee> employeeList) {
 
-        return false;
+    }
+
+    void eneterToCallCenter(Employee employee) {
+        employee.setGetStatus(true);
     }
 
     void escalateCall(Call currentCall) {
@@ -24,19 +28,27 @@ abstract class Employee {
         }
         getNewCall();
     }
-    //.............
-    private  boolean getNewCall() {
+
+    private void getNewCall() {
         if (!isStatus()) {
-            return false;
+            return;
         }
-        return CallCenter.getCallCenter().assignCall(this);
+        CallCenter.getCallCenter().assignCall(this);
     }
 
-    public void setGetStatus(boolean getStatus) {
-        this.getStatus = getStatus;
+    void setGetStatus(boolean isEmployeeFree) {
+        this.isEmployeeFree = isEmployeeFree;
     }
 
-    public boolean isStatus() {
-        return getStatus;
+    boolean isStatus() {
+        return isEmployeeFree;
+    }
+
+    public StatusOfEmployee getStatusOfEmployee() {
+        return statusOfEmployee;
+    }
+
+    public void setEmployeeFree(boolean employeeFree) {
+        isEmployeeFree = employeeFree;
     }
 }
