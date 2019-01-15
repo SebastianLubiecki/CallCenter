@@ -7,45 +7,64 @@ public class CallCenter {
 
     private static CallCenter callCenter;
 
-    private Queue<Call> callList;
+    private Queue<Call> callQueue;
     private List<Employee> consultant;
     private List<Employee> managers;
     private List<Employee> director;
     private Map<Enum<StatusOfEmployee>, List<Employee>> employeeMap;
-    private Map<Enum<StatusOfEmployee>, List<Call>> callMap;
+    private Map<Enum<StatusOfEmployee>, Queue<Call>> callMap;
 
-    private CallCenter() {
-    }
-
-    public CallCenter(Queue<Call> callList, List<Employee> consultant,
-                      List<Employee> managers, List<Employee> director) {
-        this.callList = callList;
+    private CallCenter(Queue<Call> callList, List<Employee> consultant, List<Employee> managers,
+                       List<Employee> director, Map<Enum<StatusOfEmployee>, List<Employee>> employeeMap,
+                       Map<Enum<StatusOfEmployee>, Queue<Call>> callMap) {
+        this.callQueue = callList;
         this.consultant = consultant;
         this.managers = managers;
         this.director = director;
+        this.employeeMap = employeeMap;
+        this.callMap = callMap;
     }
 
-    public static CallCenter getInstanceOfCallCenter() {
+    static CallCenter getInstanceOfCallCenter(Queue<Call> callQueue, List<Employee> consultant, List<Employee> managers,
+                                              List<Employee> director, Map<Enum<StatusOfEmployee>, List<Employee>> employeeMap,
+                                              Map<Enum<StatusOfEmployee>, Queue<Call>> callMap) {
         if (callCenter == null) {
-            callCenter = new CallCenter();
+            callCenter = new CallCenter(callQueue, consultant, managers, director, employeeMap, callMap);
         }
 
         return callCenter;
     }
 
-    public Queue<Call> addCallTolistofCalls(Call call) {
-        callList.add(call);
-        return callList;
+    public Map<Enum<StatusOfEmployee>, Queue<Call>> addNewCallToCallMap(Call call) {
+        addCallToListOfCalls(call);
+        callMap.put(call.getStatus(), callQueue);
+
+        return callMap;
+    }
+
+    private void addCallToListOfCalls(Call call) {
+        callQueue.add(call);
+    }
+
+    public boolean removeCallFromCallMap(Call call) {
+
+        return callMap.remove(call.getStatus(), call);
     }
 
     void dispatchCall(Call call) {
         algorithmOfDispatchCall(call, employeeMap.get(call.getStatus()));
-
     }
 
-    boolean assignCall (Employee employee){
+    boolean assignCall(Employee employee) {
+        if (callQueue.peek() != null) {
+            Call call = callQueue.peek();
+            call.setEmployee(employee);
+            employee.setGetStatus(true);
 
-        // brakuje implementacji, to jest prosznie sie o rozmowe
+            return true;
+        }
+        System.out.println("Queue is empty! Lest's make some tea and rest");
+
         return false;
     }
 
@@ -56,7 +75,6 @@ public class CallCenter {
         if (employeeList.get(numberOfEmployee).isStatus()) {
             employeeList.get(numberOfEmployee).setGetStatus(true);
             call.setEmployee(employeeList.get(numberOfEmployee));
-
         } else {
             int i = 0;
             while (!employeeList.get(i).isStatus()) {
@@ -67,16 +85,7 @@ public class CallCenter {
         }
     }
 
-    public void setCallList(Queue<Call> callList) {
-        this.callList = callList;
+    public static CallCenter getCallCenter() {
+        return callCenter;
     }
-
-    public boolean deleteCallFromQueue(Call call) {
-        callList.remove(call);
-        return !callList.contains(call);
-    }
-
 }
-
-
-

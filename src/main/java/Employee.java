@@ -2,13 +2,14 @@ import java.util.List;
 
 abstract class Employee {
 
-
     private boolean getStatus;
+
 
     Employee(boolean getStatus) {
         this.getStatus = getStatus;
     }
 
+    //.............
     boolean handleCall(List<Employee> employeeList) {
 
         return false;
@@ -17,20 +18,18 @@ abstract class Employee {
     void escalateCall(Call currentCall) {
         if (currentCall != null) {
             if (currentCall.incrementUrgencyLevel()) {
-                CallCenter.getInstanceOfCallCenter().dispatchCall(currentCall);
+                CallCenter.getCallCenter().dispatchCall(currentCall);
                 currentCall = null;
             }
         }
         getNewCall();
     }
-
+    //.............
     private  boolean getNewCall() {
         if (!isStatus()) {
-
             return false;
         }
-
-        return CallCenter.getInstanceOfCallCenter().assignCall(this); //metoda assignCall to takie proszneie o rozmowe
+        return CallCenter.getCallCenter().assignCall(this);
     }
 
     public void setGetStatus(boolean getStatus) {
